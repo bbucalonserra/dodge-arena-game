@@ -70,8 +70,8 @@ const ARENA_H = 700;
 const ARENA_MARGIN_X = 50;
 // Top/bottom margins are kept equal so the arena stays vertically centred.
 // The top margin must fit the perimeter wall plus the HUD text above it.
-const ARENA_MARGIN_TOP = 90;
-const ARENA_MARGIN_BOTTOM = 90;
+const ARENA_MARGIN_TOP = 100;
+const ARENA_MARGIN_BOTTOM = 100;
 const CANVAS_W = ARENA_W + ARENA_MARGIN_X * 2;
 const CANVAS_H = ARENA_H + ARENA_MARGIN_TOP + ARENA_MARGIN_BOTTOM;
 

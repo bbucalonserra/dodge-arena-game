@@ -99,7 +99,7 @@ class MenuManager {
 
         fill(255);
         textAlign(CENTER, CENTER);
-        textSize(16);
+        textSize(18);
         text(label, x + w / 2, y + h / 2);
     }
 
@@ -110,10 +110,10 @@ class MenuManager {
     drawMain() {
         fill(255);
         textAlign(CENTER, CENTER);
-        textSize(42);
+        textSize(46);
         text("DODGEM ARENA", this.canvasW / 2, this.canvasH / 2 - 120);
 
-        textSize(16);
+        textSize(18);
         fill(180);
         text(
             "A top-down bumper-car simulation built with p5.js and matter.js",
@@ -135,13 +135,13 @@ class MenuManager {
     drawModes() {
         fill(255);
         textAlign(CENTER, CENTER);
-        textSize(30);
-        text("SELECT A MODE", this.canvasW / 2, 70);
+        textSize(34);
+        text("SELECT A MODE", this.canvasW / 2, 74);
 
-        const cardW = 380, cardH = 220, gap = 40;
+        const cardW = 400, cardH = 230, gap = 36;
         const totalW = cardW * 3 + gap * 2;
         const startX = this.canvasW / 2 - totalW / 2;
-        const y = 140;
+        const y = 150;
 
         for (let i = 0; i < this.modeInfo.length; i++) {
             const info = this.modeInfo[i];
@@ -157,21 +157,21 @@ class MenuManager {
 
             fill(255, 210, 100);
             textAlign(CENTER, TOP);
-            textSize(19);
-            text(info.title, x + cardW / 2, y + 18);
+            textSize(21);
+            text(info.title, x + cardW / 2, y + 20);
 
             fill(210);
-            textSize(14);
-            let ly = y + 60;
+            textSize(16);
+            let ly = y + 66;
             for (const line of info.lines) {
                 text(line, x + cardW / 2, ly);
-                ly += 22;
+                ly += 25;
             }
 
             this.buttons.push({ x: x, y: y, w: cardW, h: cardH, action: info.action });
         }
 
-        this.button(this.canvasW / 2 - 90, y + cardH + 40, 180, 44, "Back", "back");
+        this.button(this.canvasW / 2 - 90, y + cardH + 40, 180, 46, "Back", "back");
     }
 
     /**
@@ -182,27 +182,27 @@ class MenuManager {
     drawInstructions() {
         fill(255);
         textAlign(CENTER, CENTER);
-        textSize(30);
-        text("INSTRUCTIONS", this.canvasW / 2, 55);
+        textSize(34);
+        text("INSTRUCTIONS", this.canvasW / 2, 58);
 
         textAlign(LEFT, TOP);
-        const leftX = this.canvasW / 2 - 380;
+        const leftX = this.canvasW / 2 - 400;
         const headingX = leftX;
-        const bodyX = leftX + 170;
-        const bodyW = 590;
-        let y = 100;
+        const bodyX = leftX + 190;
+        const bodyW = 610;
+        let y = 108;
 
         for (const [heading, body] of this.instructionItems) {
             fill(255, 210, 100);
-            textSize(16);
+            textSize(18);
             text(heading, headingX, y);
             fill(210);
-            textSize(14);
+            textSize(16);
             text(body, bodyX, y, bodyW);
-            y += 60;
+            y += 68;
         }
 
-        this.button(this.canvasW / 2 - 90, y + 10, 180, 44, "Back", "back");
+        this.button(this.canvasW / 2 - 90, y + 10, 180, 46, "Back", "back");
     }
 
     /**

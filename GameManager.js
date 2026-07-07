@@ -348,7 +348,7 @@ class GameManager {
         // Start Zone label.
         push();
         fill(100);
-        textSize(16);
+        textSize(20);
         textAlign(CENTER, CENTER);
         translate(
             this.arenaX + this.startZoneW / 2,
@@ -420,7 +420,7 @@ class GameManager {
         push();
         fill(50);
         noStroke();
-        textSize(14);
+        textSize(17);
         textAlign(LEFT, TOP);
         const x = this.arenaX;
         const y = 10;
@@ -431,7 +431,7 @@ class GameManager {
         );
         if (this.spawnArmed && !this.playerCar) {
             fill(200, 60, 60);
-            text("SPAWN ARMED – click inside Start Zone", x, y + 18);
+            text("SPAWN ARMED – click inside Start Zone", x, y + 22);
         }
         pop();
     }
