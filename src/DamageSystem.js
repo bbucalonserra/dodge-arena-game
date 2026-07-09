@@ -1,7 +1,4 @@
-/**
- * Per-car collision damage: tints the chassis toward red and, past a
- * threshold, emits smoke.
- */
+/** Class representing the car damage system. */
 class DamageSystem {
     constructor() {
         /** @type {Map<Matter.Body, number>} */

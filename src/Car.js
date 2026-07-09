@@ -1,3 +1,4 @@
+/** Class representing a car. */
 class Car {
     /**
      * @param {PhysicsWorld} physics - The shared physics facade to register into.

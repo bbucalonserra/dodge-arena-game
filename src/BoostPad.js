@@ -1,7 +1,4 @@
-/**
- * Mode 3 floor pad that launches a car forward. Overlap is tested as an
- * axis-aligned box; the stored angle only orients the chevron glyphs.
- */
+/** Class representing a speed boost pad. */
 class BoostPad {
     /**
      * @param {number} x - Centre x in pixels.

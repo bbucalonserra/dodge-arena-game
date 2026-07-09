@@ -1,7 +1,4 @@
-/**
- * The only module that talks to matter.js directly: owns the engine and
- * world, builds the barriers, and steps the simulation.
- */
+/** Class representing the physics simulation. */
 class PhysicsWorld {
     /**
      * @param {number} arenaWidth

@@ -1,7 +1,4 @@
-/**
- * Dark marks left under the tyres while drifting. Unlike MotionTrail they only
- * appear during a slide and fade slowly, so the slip path stays readable.
- */
+/** Class representing tyre skid marks. */
 class SkidMarks {
     constructor() {
         /** @type {Array<object>} */

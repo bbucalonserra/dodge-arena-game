@@ -1,6 +1,4 @@
-/**
- * Strategy base for opponent driving.
- */
+/** Class representing an opponent steering strategy. */
 class SteeringStrategy {
     /**
      * @param {Car} car - The opponent car this strategy controls.
@@ -28,9 +26,7 @@ class SteeringStrategy {
     }
 }
 
-/**
- * @extends SteeringStrategy
- */
+/** Class representing a stationary steering strategy. */
 class StaticStrategy extends SteeringStrategy {
     /**
      * Re-zeroes velocity every frame so the car stays put even when rammed.
@@ -42,10 +38,7 @@ class StaticStrategy extends SteeringStrategy {
     }
 }
 
-/**
- * heading is mutated externally by the collision policy.
- * @extends SteeringStrategy
- */
+/** Class representing a straight line steering strategy. */
 class StraightStrategy extends SteeringStrategy {
     /**
      * @param {number} heading - Initial travel direction in radians.
@@ -66,11 +59,7 @@ class StraightStrategy extends SteeringStrategy {
     }
 }
 
-/**
- * Oscillates the heading around baseHeading to trace a sine wave while speed
- * stays constant.
- * @extends SteeringStrategy
- */
+/** Class representing a sine wave steering strategy. */
 class SineStrategy extends SteeringStrategy {
     /**
      * @param {number} baseHeading - Overall direction of travel in radians.

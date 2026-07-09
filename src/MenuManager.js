@@ -1,7 +1,4 @@
-/**
- * Canvas-drawn menu. Buttons are rebuilt and hit-tested every frame, so the
- * clickable regions always match what's currently on screen.
- */
+/** Class representing the main menu. */
 class MenuManager {
     /**
      * @param {number} canvasW - Full canvas width in pixels.

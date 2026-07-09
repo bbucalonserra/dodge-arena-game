@@ -1,3 +1,4 @@
+/** Class representing a collision spark effect. */
 class ImpactFlash {
     constructor() {
         /** @type {Array<object>} */

@@ -1,3 +1,4 @@
+/** Class representing a barrier collision ripple. */
 class BarrierPulse {
     constructor() {
         /** @type {Array<object>} */

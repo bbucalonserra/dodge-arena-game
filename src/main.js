@@ -1,5 +1,5 @@
 /**
- * COMMENTARY (<= 500 words)
+ * COMMENTARY (490 words).
  *
  * 1. PHYSICS
     * The arena is a simulation with no gravity (hence engine.gravity = 0 on both axes), 

@@ -1,7 +1,4 @@
-/**
- * Corner overview of the full arena, so opponents outside the immediate view
- * are still visible.
- */
+/** Class representing the arena minimap. */
 class Minimap {
     /**
      * @param {number} arenaX - Arena left edge on the main canvas.

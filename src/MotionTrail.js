@@ -1,3 +1,4 @@
+/** Class representing a fading motion trail. */
 class MotionTrail {
     constructor() {
         /** @type {Array<object>} */

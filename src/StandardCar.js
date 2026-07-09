@@ -1,6 +1,4 @@
-/**
- * @extends Car
- */
+/** Class representing a light car. */
 class StandardCar extends Car {
     /**
      * @param {PhysicsWorld} physics - Shared physics facade.

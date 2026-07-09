@@ -1,8 +1,4 @@
-/**
- * Physical type (via config) and driving behaviour (via strategy) are kept
- * independent so the two axes don't multiply into a class per combination.
- * @extends Car
- */
+/** Class representing an opponent car. */
 class OpponentCar extends Car {
     /**
      * @param {PhysicsWorld} physics - Shared physics facade.

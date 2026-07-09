@@ -1,7 +1,4 @@
-/**
- * Owns mode state, spawning, the collision policy, the Mode 3 dynamic arena
- * (Sudden Death and boost pads), and drives every subsystem each frame.
- */
+/** Class representing the game manager. */
 class GameManager {
     /**
      * @param {PhysicsWorld} physics - The shared physics facade.

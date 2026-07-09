@@ -1,8 +1,4 @@
-/**
- * Heavier and weaker than StandardCar, so it accelerates slowly and shoves
- * harder in collisions.
- * @extends Car
- */
+/** Class representing a slow car. */
 class SlowCar extends Car {
     /**
      * @param {PhysicsWorld} physics - Shared physics facade.
