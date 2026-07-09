@@ -1,57 +1,52 @@
 /**
- * ======================================================================
  * COMMENTARY (<= 500 words)
  *
  * 1. PHYSICS
- * The arena is a top-down simulation with zero gravity (engine.gravity = 0
- * on both axes). Cars are matter.js rectangles with frictionAir modelling
- * tyre-ground drag; without it, vehicles would glide indefinitely. Barriers
- * use isStatic: true (infinite mass) and restitution: 0.9, producing a firm
- * bounce with slight energy loss. Two archetypes differ by density and
- * enginePower: StandardCar is nimble; SlowCar is heavy and sluggish,
- * transferring more impulse in collisions. Density is tuned so the enlarged
- * bodies keep the intended mass, acceleration and top speed. Throttle applies
- * a directional force each frame via Body.applyForce along the chassis angle;
- * capSpeed clamps the velocity magnitude to a per-type ceiling. A tyre-grip
- * model splits velocity into forward and lateral components and cancels a
- * fraction of the lateral part each frame; because steering rotates the
- * chassis instantly, a fast turn leaves velocity off-axis, so the car drifts
- * (a real slip angle) until grip realigns it.
- *
+    * The arena is a simulation with no gravity (hence engine.gravity = 0 on both axes), 
+    * where cars are matter.js rectangles with a frictionAir tyre drag. Without it, the 
+    * cars would glide indefinitely. The barriers from the rectangle (arena) use isStatic = true, 
+    * with infinite mass and a restitution of 0.9, making a firm bounce with energy loss. There are 
+    * two types that differ by density and enginePower: the StandardCar is nimble and the Slow car 
+    * is heavy and sluggish, which makes it transfer more impulse during collisions. The expanded bodies
+    * are able to maintain their weight, acceleration and maximum velocity thanks to the adjustment of
+    * density. The throttle applies directional force in Body.applyForce in every frame according to the
+    * chassis angle, carSpeed converts movement into forward and sideways force and subtracts part of the 
+    * sideways force in every frame because of the rotation of chassis, as quick turning rotates the chassis 
+    * right away leaving the speed skewed so that the car will slide until the grip of the wheels 
+    * gets aligned again.
+
  * 2. OPPONENT LOGIC (MODES 2 and 3)
- * Opponent driving uses the Strategy pattern. StraightStrategy holds a fixed
- * heading; SineStrategy oscillates the heading around a base direction via
- * sin(phase). Both call enforceHeading(), setting velocity and angle directly,
- * since opponents follow prescribed paths rather than simulating engine
- * inertia. The collision policy mutates whichever field a strategy steers by
- * (heading or baseHeading), so it applies to both types: reverse 180 degrees
- * on a barrier, rotate a random plus or minus 90 degrees on car-car contact.
- * A collisionStart only fires once per contact, so a car pinned against a wall
- * (nudged there by another car, or overtaken by a moving Sudden Death wall)
- * would otherwise grind in place or slip through. A per-frame containment pass
- * reflects the heading component aimed at a nearby wall and hard-clamps
- * opponents inside the current bounds, which track the shrinking arena.
- *
+
+    * In the case of the strategy approach, we can observe its usage among the opponents, where StraightStrategy 
+    * (Mode 2) leads to maintaining heading at constant speed (using Body.setVelocity). SineStrategy (Mode 3) makes the 
+    * heading oscillate around some direction based on trigonometric operations, using the fact that phase progresses regularly 
+    * with time according to frame count. Employing enforceHeading() in both cases, which both determines the angle and speed 
+    * at the same time, is reasonable for the project since it directs the movement and not applies game physics. The collision
+    * basically leads to the change of the strategy heading from outside: +PI on barrier contact in addition to
+    * either +PI/2 or -PI/2 when the car collides with another one (there can be a random case).
+
  * 3. ANIMATIONS
- * Particle systems share an emit/update/draw lifecycle. MotionTrail spawns
- * speed-scaled fading marks; ImpactFlash bursts radial sparks that decelerate
- * and fade; BarrierPulse expands a stroked ring. SkidMarks records dark,
- * slow-fading dots under the rear tyres while the player drifts. All prune
- * dead particles by reverse-iteration splice.
- *
+    * The particle system uses the same update and draw cycle, where:
+    *   - MotionTrail created a speed-scaled fading markws;
+    *   - ImpactFlash bursts sparks that decelerate and fade; 
+    *   - BarrierPulse expands a stroke ring. 
+    * Finally, the SkidMarks records a slow-fading dots under the rear tyres during player drift. All particles dead by dead 
+    * reverse iteration cut.
+
+
  * 4. CREATIVE EXTENSION
- * (a) Minimap: a scaled HUD mapping world coordinates to a corner viewport,
- * with a blinking player dot. (b) Damage system: a per-car counter in a Map
- * drives a lerpColor tint toward red plus a smoke particle system past a
- * threshold. (c) Slip-angle drift with skid marks (see physics above),
- * coupling the grip model to a dedicated visual. (d) Mode 3 dynamic arena:
- * every cycle a Sudden Death phase gradually moves the four static walls
- * inward (Body.setPosition) to shrink the playfield, held then restored,
- * forcing cars together; boost pads apply a forward launch past the normal
- * speed cap and vanish during the shrink. (e) A canvas-drawn menu and looped
- * background music via p5.sound. These add persistent state, dynamic geometry
- * and audio, going well beyond simple scoring.
- * ======================================================================
+    * i. Minimap: HUD mapping world coordinates in top right screen,
+    * with the player dot blinking for better understanding.
+    * ii. Damage system: for each car, a counter in a Map makes a lerpColor tint toward red plus, making it
+    * change colour for each crash.
+    * iii. An angle drift with skid marks (see physics above),
+    * coupling the grip model to a dedicated visual. 
+    * iv. Mode 3 dynamic arena: a Sudden Death phase, where the arena gradually moves the four static walls
+    * inward (Body.setPosition) to shrink area where player can drive,
+    * forcing cars to get together.
+    * v. Boost pads apply a forward launch past the normal speed cap, going back to normal
+    * after a few milliseconds.
+    * vi. A menu, together with instruction draw directly using p5.js, and a background music via p5.sound
  */
 
 /** @type {PhysicsWorld} */
@@ -85,7 +80,7 @@ let musicMuted = false;
 const MUSIC_VOLUME = 0.4;
 
 /**
- * Wrapped so a missing or blocked file cannot abort startup.
+ * Wrapped so a missing or blocked file cannot abort the sketch.
  * @return {void}
  */
 function preload() {
