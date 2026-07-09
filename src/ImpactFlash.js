@@ -1,15 +1,10 @@
-/**
- * Brief expanding spark ring at the point of a car-to-car collision.
- * Each impact spawns several radial sparks that fly outward and fade.
- */
 class ImpactFlash {
     constructor() {
-        /** @type {Array<object>} Live spark particles. */
+        /** @type {Array<object>} */
         this.sparks = [];
     }
 
     /**
-     * Spawns a burst of sparks radiating from a collision point.
      * @param {number} x - Impact x in pixels.
      * @param {number} y - Impact y in pixels.
      * @return {void}
@@ -29,7 +24,6 @@ class ImpactFlash {
     }
 
     /**
-     * Moves each spark outward and ages it; prunes dead sparks.
      * @return {void}
      */
     update() {
@@ -45,7 +39,6 @@ class ImpactFlash {
     }
 
     /**
-     * Draws each spark as a fading bright dot.
      * @return {void}
      */
     draw() {

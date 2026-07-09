@@ -1,21 +1,18 @@
 /**
- * Tracks cumulative collision damage per car and produces visual feedback:
- * chassis tint shifts from original colour toward dark red, and smoke
- * particles emit when damage exceeds a threshold.
+ * Per-car collision damage: tints the chassis toward red and, past a
+ * threshold, emits smoke.
  */
 class DamageSystem {
     constructor() {
-        /** @type {Map<Matter.Body, number>} Damage counters keyed by body. */
+        /** @type {Map<Matter.Body, number>} */
         this.damageMap = new Map();
-        /** @type {Array<object>} Active smoke particles. */
+        /** @type {Array<object>} */
         this.smokeParticles = [];
         this.maxDamage = 10;
         this.smokeThreshold = 5;
     }
 
     /**
-     * Registers a collision hit for a car, increasing its damage counter.
-     * If the car exceeds the smoke threshold, a puff is emitted.
      * @param {Car} car - The car that took a hit.
      * @return {void}
      */
@@ -30,7 +27,6 @@ class DamageSystem {
     }
 
     /**
-     * Spawns a cluster of grey smoke particles at a position.
      * @param {number} x - Centre x.
      * @param {number} y - Centre y.
      * @return {void}
@@ -49,7 +45,6 @@ class DamageSystem {
     }
 
     /**
-     * Ages and prunes smoke particles.
      * @return {void}
      */
     update() {
@@ -64,7 +59,6 @@ class DamageSystem {
     }
 
     /**
-     * Draws all smoke particles as expanding grey puffs.
      * @return {void}
      */
     drawSmoke() {
@@ -76,8 +70,6 @@ class DamageSystem {
     }
 
     /**
-     * Returns a damage-tinted colour for a car. At zero damage the original
-     * colour is returned; at max damage it shifts fully to dark red.
      * @param {Car} car - The car to query.
      * @return {p5.Color} The tinted colour.
      */
@@ -89,7 +81,6 @@ class DamageSystem {
     }
 
     /**
-     * Resets all damage (used when switching modes).
      * @return {void}
      */
     reset() {

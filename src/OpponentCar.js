@@ -1,9 +1,6 @@
 /**
- * A self-driving opponent car. Inherits all physical and visual behaviour
- * from Car, and delegates its per-frame movement to a composed steering
- * strategy. Physical personality (standard or slow) is chosen via config;
- * driving behaviour (static, straight, sine) is chosen via strategy —
- * the two dimensions are independent, avoiding a class explosion.
+ * Physical type (via config) and driving behaviour (via strategy) are kept
+ * independent so the two axes don't multiply into a class per combination.
  * @extends Car
  */
 class OpponentCar extends Car {
@@ -21,8 +18,6 @@ class OpponentCar extends Car {
     }
 
     /**
-     * Swaps the active steering strategy at runtime (e.g. when switching
-     * modes reuses a car, though the game typically rebuilds cars per mode).
      * @param {SteeringStrategy} strategy - The new behaviour.
      * @return {void}
      */
@@ -31,8 +26,6 @@ class OpponentCar extends Car {
     }
 
     /**
-     * Per-frame update: let the strategy drive, then enforce the speed cap
-     * inherited from Car.
      * @return {void}
      */
     update() {

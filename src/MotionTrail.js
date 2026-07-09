@@ -1,17 +1,10 @@
-/**
- * Speed-dependent fading trail left behind moving cars. Each frame a car
- * moves fast enough, a faint mark is spawned at its position; marks fade
- * and shrink over their lifetime. Update advances/prunes; draw renders.
- */
 class MotionTrail {
     constructor() {
-        /** @type {Array<object>} Live trail marks. */
+        /** @type {Array<object>} */
         this.marks = [];
     }
 
     /**
-     * Spawns a trail mark for a car if it is moving fast enough. Mark size
-     * and starting opacity scale with speed so faster cars leave stronger trails.
      * @param {number} x - Car centre x in pixels.
      * @param {number} y - Car centre y in pixels.
      * @param {number} speed - Current car speed in pixels per step.
@@ -23,6 +16,7 @@ class MotionTrail {
         this.marks.push({
             x: x,
             y: y,
+            // Faster cars leave larger marks.
             r: map(speed, 1, 7, 4, 12),
             life: 1.0,
             color: color
@@ -30,7 +24,6 @@ class MotionTrail {
     }
 
     /**
-     * Ages every mark, reducing its life; removes fully-faded marks.
      * @return {void}
      */
     update() {
@@ -41,7 +34,6 @@ class MotionTrail {
     }
 
     /**
-     * Draws every mark as a fading, shrinking circle.
      * @return {void}
      */
     draw() {

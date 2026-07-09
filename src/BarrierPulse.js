@@ -1,15 +1,10 @@
-/**
- * Localised ripple plus colour flash when a car hits the barrier. Each hit
- * spawns an expanding ring that grows and fades at the contact point.
- */
 class BarrierPulse {
     constructor() {
-        /** @type {Array<object>} Live ripple rings. */
+        /** @type {Array<object>} */
         this.pulses = [];
     }
 
     /**
-     * Spawns a ripple ring at a barrier contact point.
      * @param {number} x - Contact x in pixels.
      * @param {number} y - Contact y in pixels.
      * @return {void}
@@ -19,7 +14,6 @@ class BarrierPulse {
     }
 
     /**
-     * Grows each ring and ages it; prunes finished pulses.
      * @return {void}
      */
     update() {
@@ -31,7 +25,6 @@ class BarrierPulse {
     }
 
     /**
-     * Draws each pulse as an expanding, fading coloured ring.
      * @return {void}
      */
     draw() {

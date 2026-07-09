@@ -1,12 +1,8 @@
 /**
- * Abstract base for opponent steering behaviours (Strategy pattern).
- * A strategy decides, each frame, how its car should move. Subclasses
- * override apply(); the base offers a shared helper that pushes a car
- * toward a target speed along a given heading.
+ * Strategy base for opponent driving.
  */
 class SteeringStrategy {
     /**
-     * Drives the car for one frame. Must be overridden by subclasses.
      * @param {Car} car - The opponent car this strategy controls.
      * @return {void}
      */
@@ -15,9 +11,9 @@ class SteeringStrategy {
     }
 
     /**
-     * Pushes a car so its velocity points along `heading` at `targetSpeed`,
-     * and rotates the chassis to face its travel direction. Keeps opponents
-     * moving at an approximately constant speed regardless of drag.
+     * Sets velocity and angle directly instead of applying forces, since
+     * opponents follow prescribed paths and shouldn't drift or lose speed to
+     * drag.
      * @param {Car} car - The car to drive.
      * @param {number} heading - Desired travel direction in radians.
      * @param {number} targetSpeed - Desired speed in pixels per step.
@@ -33,12 +29,11 @@ class SteeringStrategy {
 }
 
 /**
- * Keeps a car completely still. Used by parked opponents in Mode 1.
  * @extends SteeringStrategy
  */
 class StaticStrategy extends SteeringStrategy {
     /**
-     * Zeroes the car's velocity every frame so it stays parked even if bumped.
+     * Re-zeroes velocity every frame so the car stays put even when rammed.
      * @param {Car} car - The parked opponent.
      * @return {void}
      */
@@ -48,9 +43,7 @@ class StaticStrategy extends SteeringStrategy {
 }
 
 /**
- * Drives a car in a straight line along a fixed heading at constant speed.
- * Used by opponents in Mode 2. The heading is mutated externally by the
- * collision policy (180 degrees on wall, plus or minus 90 on car contact).
+ * heading is mutated externally by the collision policy.
  * @extends SteeringStrategy
  */
 class StraightStrategy extends SteeringStrategy {
@@ -65,7 +58,6 @@ class StraightStrategy extends SteeringStrategy {
     }
 
     /**
-     * Moves the car one frame along its current heading at constant speed.
      * @param {Car} car - The opponent to drive.
      * @return {void}
      */
@@ -75,10 +67,8 @@ class StraightStrategy extends SteeringStrategy {
 }
 
 /**
- * Drives a car along a sine-wave trajectory at approximately constant
- * speed. Used by advanced opponents in Mode 3. The base heading is the
- * overall direction of travel; a sine term oscillates the instantaneous
- * heading around it to trace a wave.
+ * Oscillates the heading around baseHeading to trace a sine wave while speed
+ * stays constant.
  * @extends SteeringStrategy
  */
 class SineStrategy extends SteeringStrategy {
@@ -98,13 +88,11 @@ class SineStrategy extends SteeringStrategy {
     }
 
     /**
-     * Advances the sine phase and drives the car along the oscillating
-     * heading, producing a smooth wave while speed stays constant.
      * @param {Car} car - The opponent to drive.
      * @return {void}
      */
     apply(car) {
-        // Advance phase by one frame's worth of angular progress (60 FPS).
+        // One frame of phase at 60 FPS.
         this.phase += this.frequency * (Math.PI * 2) / 60;
         const heading = this.baseHeading + Math.sin(this.phase) * this.amplitude;
         this.enforceHeading(car, heading, this.speed);

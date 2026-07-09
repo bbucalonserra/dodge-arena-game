@@ -1,9 +1,6 @@
 /**
- * Pre-game menu system: a main menu with two entry points (Mode Select and
- * Instructions), plus the two sub-screens themselves. Entirely canvas-drawn
- * (no DOM) so it shares the same rendering pipeline as the arena. Clickable
- * regions are rebuilt every frame and hit-tested by the caller; hovering
- * brightens a region for feedback.
+ * Canvas-drawn menu. Buttons are rebuilt and hit-tested every frame, so the
+ * clickable regions always match what's currently on screen.
  */
 class MenuManager {
     /**
@@ -14,15 +11,15 @@ class MenuManager {
         this.canvasW = canvasW;
         this.canvasH = canvasH;
 
-        /** @type {"main"|"modes"|"instructions"} Active sub-screen. */
+        /** @type {"main"|"modes"|"instructions"} */
         this.screen = "main";
-        /** @type {Array<object>} Clickable regions rebuilt every draw() call. */
+        /** @type {Array<object>} Rebuilt on every draw(). */
         this.buttons = [];
 
-        /** @type {Array<object>} Mode descriptions in British English. */
+        /** @type {Array<object>} */
         this.modeInfo = [
             {
-                title: "Mode 1 — Practice",
+                title: "Mode 1: Practice",
                 action: "mode1",
                 lines: [
                     "Four opponents start parked in the Start Zone.",
@@ -31,7 +28,7 @@ class MenuManager {
                 ]
             },
             {
-                title: "Mode 2 — Random Opponents",
+                title: "Mode 2: Random Opponents",
                 action: "mode2",
                 lines: [
                     "Four opponents spawn at random positions and",
@@ -40,17 +37,19 @@ class MenuManager {
                 ]
             },
             {
-                title: "Mode 3 — Advanced Opponents",
+                title: "Mode 3: Advanced Opponents",
                 action: "mode3",
                 lines: [
-                    "As Random Opponents, but each car weaves along",
-                    "a sine-wave trajectory at a steady speed —",
-                    "trickier to read and avoid."
+                    "Opponents weave along sine-wave paths at a",
+                    "steady speed. Boost pads fling you forward",
+                    "while the arena is at full size. Every cycle a",
+                    "Sudden Death phase slowly shrinks the arena,",
+                    "forcing everyone together, then it reopens."
                 ]
             }
         ];
 
-        /** @type {Array<Array<string>>} [heading, body] pairs for Instructions. */
+        /** @type {Array<Array<string>>} [heading, body] pairs. */
         this.instructionItems = [
             ["Driving", "Arrow keys only. Up/Down accelerate or reverse; Left/Right steer."],
             ["Switching modes", "Press 1, 2 or 3 at any time to change arena mode (this clears the arena and restarts)."],
@@ -59,13 +58,14 @@ class MenuManager {
             ["Barrier collisions", "Hitting the perimeter barrier reverses an opponent's heading and triggers an orange ripple."],
             ["Car collisions", "Hitting another car deflects both cars' headings by ninety degrees and triggers a spark flash."],
             ["Damage", "Repeated collisions tint a car's chassis towards red and eventually make it emit smoke."],
-            ["Minimap", "The panel in the top-right corner shows every car's position; your car blinks white."]
+            ["Minimap", "The panel in the top-right corner shows every car's position; your car blinks white."],
+            ["Boost pads", "In Mode 3, drive over a glowing pad at full arena size to be flung forward past your normal top speed."],
+            ["Sudden Death", "In Mode 3, the arena periodically shrinks inward for a few seconds, forcing cars together, then reopens."],
+            ["Music", "Press M at any time to mute or unmute the background music."]
         ];
     }
 
     /**
-     * Draws the active sub-screen. Rebuilds the button list every call so
-     * hit-testing always matches what is currently on screen.
      * @return {void}
      */
     draw() {
@@ -78,7 +78,6 @@ class MenuManager {
     }
 
     /**
-     * Registers a clickable rectangle and renders it, brightened on hover.
      * @param {number} x
      * @param {number} y
      * @param {number} w
@@ -104,7 +103,6 @@ class MenuManager {
     }
 
     /**
-     * Main menu: title plus two entry points.
      * @return {void}
      */
     drawMain() {
@@ -128,8 +126,8 @@ class MenuManager {
     }
 
     /**
-     * Mode select screen: one card per arena mode with a British-English
-     * description, plus a Back button.
+     * A whole card counts as its mode's button, so the click target is the
+     * description, not just a small button.
      * @return {void}
      */
     drawModes() {
@@ -175,8 +173,6 @@ class MenuManager {
     }
 
     /**
-     * Instructions screen: controls, spawning and collision rules in
-     * British English, plus a Back button.
      * @return {void}
      */
     drawInstructions() {
@@ -199,14 +195,14 @@ class MenuManager {
             fill(210);
             textSize(16);
             text(body, bodyX, y, bodyW);
-            y += 68;
+            y += 62;
         }
 
         this.button(this.canvasW / 2 - 90, y + 10, 180, 46, "Back", "back");
     }
 
     /**
-     * Hit-tests the click point against the buttons drawn on the last frame.
+     * Tests against the buttons from the last drawn frame.
      * @param {number} mx
      * @param {number} my
      * @return {string|null} The action of the clicked button, or null.

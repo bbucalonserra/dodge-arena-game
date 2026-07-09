@@ -1,7 +1,6 @@
 /**
- * Heads-up minimap rendered at a corner of the canvas. Redraws the
- * arena and all cars at reduced scale, giving the player spatial
- * awareness of opponents outside the viewport.
+ * Corner overview of the full arena, so opponents outside the immediate view
+ * are still visible.
  */
 class Minimap {
     /**
@@ -19,20 +18,17 @@ class Minimap {
         this.scale = scale;
         this.mapW = arenaW * scale;
         this.mapH = arenaH * scale;
-        // Position: top-right corner with 10px margin.
+        // Top-right corner with a 10px margin.
         this.drawX = arenaX + arenaW - this.mapW - 10;
         this.drawY = arenaY + 10;
     }
 
     /**
-     * Renders the minimap background and car blips. Each car is a small
-     * coloured dot at its scaled position; the player blinks to stand out.
      * @param {Array<Car>} cars - All cars currently in the arena.
      * @param {Car|null} playerCar - The player car (blinks), or null.
      * @return {void}
      */
     draw(cars, playerCar) {
-        // Semi-transparent background.
         push();
         fill(0, 0, 0, 120);
         stroke(200);
@@ -44,7 +40,7 @@ class Minimap {
             const cx = this.drawX + (car.body.position.x - this.arenaX) * this.scale;
             const cy = this.drawY + (car.body.position.y - this.arenaY) * this.scale;
             const isPlayer = car === playerCar;
-            // Player dot blinks every 30 frames.
+            // Blink the player dot so it stands out.
             if (isPlayer && frameCount % 30 < 15) {
                 fill(255);
             } else {
