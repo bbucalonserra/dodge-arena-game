@@ -54,7 +54,7 @@ class GameManager {
         this.insetY = 0;
         this.suddenDeathActive = false;
 
-        // Density is compensated for the enlarged body (see Car subclasses).
+        // Density is compensated for the enlarged body (check Car subclasses).
         // Slow has lower grip, so it slides more under hard direction changes.
         this.standardConfig = {
             density: 0.000314,
@@ -98,7 +98,7 @@ class GameManager {
     }
 
     /**
-     * Runs on every mode start so non-Mode-3 modes always get full-size walls.
+     * Runs on every mode start so non-Mode 3 modes always get full-size walls.
      * @return {void}
      */
     resetSuddenDeath() {
@@ -221,11 +221,18 @@ class GameManager {
     trySpawn(mx, my) {
         if (!this.spawnArmed || this.playerCar) return false;
 
+        // Validate against the current (possibly shrunk) Start Zone, matching
+        // what drawArena shows, so a Sudden Death spawn can't land in the
+        // band the walls have already claimed.
+        const ax = this.arenaX + this.insetX;
+        const ay = this.arenaY + this.insetY;
+        const aw = this.arenaW - 2 * this.insetX;
+        const ah = this.arenaH - 2 * this.insetY;
         if (
-            mx < this.arenaX ||
-            mx > this.arenaX + this.startZoneW ||
-            my < this.arenaY ||
-            my > this.arenaY + this.arenaH
+            mx < ax ||
+            mx > ax + aw * 0.2 ||
+            my < ay ||
+            my > ay + ah
         ) {
             return false;
         }
@@ -334,7 +341,8 @@ class GameManager {
      * @return {void}
      */
     updateSuddenDeath() {
-        const dt = deltaTime / 1000;
+        // Cap the step so a background-tab pause can't skip whole phases.
+        const dt = Math.min(deltaTime, 100) / 1000;
         this.sdTimer += dt;
 
         if (this.sdPhase === "wait") {
@@ -410,6 +418,27 @@ class GameManager {
             const cy = Math.max(innerTop + halfH, Math.min(innerBottom - halfH, p.y));
             if (cx !== p.x || cy !== p.y) {
                 this.physics.Body.setPosition(opp.body, { x: cx, y: cy });
+            }
+        }
+
+        // The player can be tunnelled by a moving Sudden Death wall too.
+        // Rescue only after a deep escape (tol), so ordinary wall bounces
+        // stay with the physics solver.
+        if (this.playerCar) {
+            const p = this.playerCar.body.position;
+            const halfW = this.playerCar.w / 2;
+            const halfH = this.playerCar.h / 2;
+            const tol = 30;
+            if (
+                p.x < innerLeft + halfW - tol ||
+                p.x > innerRight - halfW + tol ||
+                p.y < innerTop + halfH - tol ||
+                p.y > innerBottom - halfH + tol
+            ) {
+                const cx = Math.max(innerLeft + halfW, Math.min(innerRight - halfW, p.x));
+                const cy = Math.max(innerTop + halfH, Math.min(innerBottom - halfH, p.y));
+                this.physics.Body.setPosition(this.playerCar.body, { x: cx, y: cy });
+                this.physics.Body.setVelocity(this.playerCar.body, { x: 0, y: 0 });
             }
         }
     }

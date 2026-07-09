@@ -67,7 +67,7 @@ const CANVAS_W = ARENA_W + ARENA_MARGIN_X * 2;
 const CANVAS_H = ARENA_H + ARENA_MARGIN_TOP + ARENA_MARGIN_BOTTOM;
 
 // Required by the spec to be a global.
-let carNumbers = 4;
+var carNumbers = 4;
 
 /** @type {"menu"|"game"} */
 let appState = "menu";
@@ -135,9 +135,23 @@ function draw() {
 function startMusicOnce() {
     if (musicStarted || !musicReady || !bgMusic) return;
     if (typeof userStartAudio === "function") userStartAudio();
+
+    const ctx = typeof getAudioContext === "function" ? getAudioContext() : null;
+    if (ctx && ctx.state !== "running") {
+        // Autoplay is blocked: start the loop only once the context actually
+        // resumes, and keep the guard unset until then so gestures retry.
+        ctx.resume().then(() => {
+            if (musicStarted) return;
+            musicStarted = true;
+            bgMusic.setVolume(musicMuted ? 0 : MUSIC_VOLUME);
+            bgMusic.loop();
+        });
+        return;
+    }
+
+    musicStarted = true;
     bgMusic.setVolume(musicMuted ? 0 : MUSIC_VOLUME);
     bgMusic.loop();
-    musicStarted = true;
 }
 
 /**
