@@ -42,11 +42,11 @@
     * iii. An angle drift with skid marks (see physics above),
     * coupling the grip model to a dedicated visual. 
     * iv. Mode 3 dynamic arena: a Sudden Death phase, where the arena gradually moves the four static walls
-    * inward (Body.setPosition) to shrink area where player can drive,
-    * forcing cars to get together.
+    * inward (Body.setPosition) to shrink area where player can drive, forcing cars to get together.
     * v. Boost pads apply a forward launch past the normal speed cap, going back to normal
     * after a few milliseconds.
-    * vi. A menu, together with instruction draw directly using p5.js, and a background music via p5.sound
+    * vi. A menu, together with instruction draw directly using p5.js, and a background music 
+    * via p5.sound (music from pixbay, direct link: https://pixabay.com/music/video-games-8-bit-retro-game-music-233964/)
  */
 
 /** @type {PhysicsWorld} */
@@ -59,6 +59,7 @@ let menuManager;
 const ARENA_W = 1400;
 const ARENA_H = 700;
 const ARENA_MARGIN_X = 50;
+
 // Equal top/bottom margins keep the arena vertically centred; the top margin
 // also has to clear the perimeter wall and the HUD line above it.
 const ARENA_MARGIN_TOP = 100;
@@ -86,7 +87,7 @@ const MUSIC_VOLUME = 0.4;
 function preload() {
     if (typeof loadSound === "function") {
         bgMusic = loadSound(
-            "assets/retro-quest.mp3",
+            "assets/moodmode-8-bit-retro-game-music-233964.mp3",
             () => { musicReady = true; },
             () => { musicReady = false; }
         );

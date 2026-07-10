@@ -1,16 +1,17 @@
 /** Class representing the car damage system. */
 class DamageSystem {
     constructor() {
-        /** @type {Map<Matter.Body, number>} */
+        /** @type {Map<Matter.Body, number>} A map from each car's physics body to its accumulated damage count. */
         this.damageMap = new Map();
-        /** @type {Array<object>} */
+        /** @type {Array<object>} An array of smoke particle objects, each holding its position, velocity, size, and remaining life. */
         this.smokeParticles = [];
         this.maxDamage = 10;
         this.smokeThreshold = 5;
     }
 
     /**
-     * @param {Car} car - The car that took a hit.
+     * Increments a car's damage and emits smoke once it passes the threshold.
+     * @param {Car} car
      * @return {void}
      */
     registerHit(car) {
@@ -24,8 +25,9 @@ class DamageSystem {
     }
 
     /**
-     * @param {number} x - Centre x.
-     * @param {number} y - Centre y.
+     * Spawns a puff of smoke particles at the given point.
+     * @param {number} x
+     * @param {number} y
      * @return {void}
      */
     emitSmoke(x, y) {
@@ -42,6 +44,7 @@ class DamageSystem {
     }
 
     /**
+     * Moves, grows, and fades each smoke particle, removing those that have expired.
      * @return {void}
      */
     update() {
@@ -56,6 +59,7 @@ class DamageSystem {
     }
 
     /**
+     * Renders every active smoke particle.
      * @return {void}
      */
     drawSmoke() {
@@ -67,6 +71,7 @@ class DamageSystem {
     }
 
     /**
+     * Returns the car's colour blended toward red by its accumulated damage.
      * @param {Car} car - The car to query.
      * @return {p5.Color} The tinted colour.
      */
@@ -78,6 +83,7 @@ class DamageSystem {
     }
 
     /**
+     * Clears all recorded damage and smoke.
      * @return {void}
      */
     reset() {

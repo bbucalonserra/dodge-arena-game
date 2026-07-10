@@ -1,13 +1,17 @@
 /** Class representing a barrier collision ripple. */
 class BarrierPulse {
     constructor() {
-        /** @type {Array<object>} */
+        /**
+         * An array of active pulse objects, each holding its position, radius, and remaining life.
+         * @type {Array<object>}
+         */
         this.pulses = [];
     }
 
     /**
-     * @param {number} x - Contact x in pixels.
-     * @param {number} y - Contact y in pixels.
+     * Emits a new expanding ripple at the given coordinates.
+     * @param {number} x
+     * @param {number} y
      * @return {void}
      */
     emit(x, y) {
@@ -15,6 +19,7 @@ class BarrierPulse {
     }
 
     /**
+     * Updates each pulse's radius and life, removing those that have expired.
      * @return {void}
      */
     update() {
@@ -26,6 +31,7 @@ class BarrierPulse {
     }
 
     /**
+     * Draws every active pulse as an expanding, fading ring.
      * @return {void}
      */
     draw() {

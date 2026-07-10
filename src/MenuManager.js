@@ -1,8 +1,8 @@
 /** Class representing the main menu. */
 class MenuManager {
     /**
-     * @param {number} canvasW - Full canvas width in pixels.
-     * @param {number} canvasH - Full canvas height in pixels.
+     * @param {number} canvasW
+     * @param {number} canvasH
      */
     constructor(canvasW, canvasH) {
         this.canvasW = canvasW;
@@ -13,14 +13,14 @@ class MenuManager {
         /** @type {Array<object>} Rebuilt on every draw(). */
         this.buttons = [];
 
-        /** @type {Array<object>} */
+        /** @type {Array<object>} The three mode cards' titles, actions, and description lines. */
         this.modeInfo = [
             {
                 title: "Mode 1: Practice",
                 action: "mode1",
                 lines: [
                     "Four opponents start parked in the Start Zone.",
-                    "A gentle introduction to the controls before",
+                    "An introduction to the controls before",
                     "facing moving traffic."
                 ]
             },
@@ -40,7 +40,7 @@ class MenuManager {
                     "Opponents weave along sine-wave paths at a",
                     "steady speed. Boost pads fling you forward",
                     "while the arena is at full size. Every cycle a",
-                    "Sudden Death phase slowly shrinks the arena,",
+                    "Sudden Death phase shrinks the arena,",
                     "forcing everyone together, then it reopens."
                 ]
             }
@@ -63,6 +63,7 @@ class MenuManager {
     }
 
     /**
+     * Draws the current menu screen.
      * @return {void}
      */
     draw() {
@@ -75,6 +76,7 @@ class MenuManager {
     }
 
     /**
+     * Draws a click button and registers its hit area for this frame.
      * @param {number} x
      * @param {number} y
      * @param {number} w
@@ -100,6 +102,7 @@ class MenuManager {
     }
 
     /**
+     * Draws the title screen with its navigation buttons.
      * @return {void}
      */
     drawMain() {
@@ -123,7 +126,7 @@ class MenuManager {
     }
 
     /**
-     * A whole card counts as its mode's button, so the click target is the
+     * A card counts as its mode's button, so the click target is the
      * description, not just a small button.
      * @return {void}
      */
@@ -170,6 +173,7 @@ class MenuManager {
     }
 
     /**
+     * Draws the instructions screen listing in every gameplay item.
      * @return {void}
      */
     drawInstructions() {

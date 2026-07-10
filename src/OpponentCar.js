@@ -14,6 +14,7 @@ class OpponentCar extends Car {
     }
 
     /**
+     * Replaces the opponent's current steering strategy.
      * @param {SteeringStrategy} strategy - The new behaviour.
      * @return {void}
      */
@@ -22,6 +23,7 @@ class OpponentCar extends Car {
     }
 
     /**
+     * Applies the steering strategy, then runs the base car update.
      * @return {void}
      */
     update() {

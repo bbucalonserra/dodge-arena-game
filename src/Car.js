@@ -43,6 +43,7 @@ class Car {
     }
 
     /**
+     * Applies an engine force along the car's facing, forward or reverse.
      * @param {number} direction - +1 for forward, -1 for reverse.
      * @return {void}
      */
@@ -56,6 +57,7 @@ class Car {
     }
 
     /**
+     * Rotates the chassis toward the given side, unless the car is nearly still.
      * @param {number} direction - +1 to steer right, -1 to steer left.
      * @return {void}
      */
@@ -67,6 +69,7 @@ class Car {
     }
 
     /**
+     * Returns the car's current speed.
      * @return {number} The magnitude of the body's velocity vector.
      */
     getSpeed() {
@@ -75,10 +78,10 @@ class Car {
     }
 
     /**
-     * Split velocity into forward/lateral and bleed off a fraction of the
-     * lateral part. Steering rotates the chassis instantly, so a hard turn
-     * leaves velocity off-axis: the leftover lateral component is the drift,
-     * and grip pulls it back into line over the next frames.
+     * Split velocity into forward/lateral and bleed off a fraction of the lateral part.
+     * Steering rotates the chassis instantly, so a hard turn
+     * leaves velocity off-axis: the leftover lateral component 
+     * is the drift, and grip pulls it back into line over the next frames.
      * @return {void}
      */
     applyTyreFriction() {
@@ -107,6 +110,7 @@ class Car {
     }
 
     /**
+     * Bumps the forward speed up to a target and raises the speed cap briefly.
      * @param {number} targetSpeed - Forward speed to reach, in pixels per step.
      * @param {number} capFrames - Frames the raised speed cap stays in effect.
      * @return {void}
@@ -144,6 +148,7 @@ class Car {
     }
 
     /**
+     * Advances the car one frame: tyre friction, speed cap, and boost timer.
      * @return {void}
      */
     update() {
@@ -153,6 +158,7 @@ class Car {
     }
 
     /**
+     * Renders the car body, bumpers, windshield, and headlights.
      * @param {boolean} [highlight] - Draw a bright outline to mark the player.
      * @return {void}
      */

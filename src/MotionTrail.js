@@ -1,11 +1,15 @@
 /** Class representing a fading motion trail. */
 class MotionTrail {
     constructor() {
-        /** @type {Array<object>} */
+        /**
+         * An array of trail objects, each holding its position, radius, colour, and remaining life.
+         * @type {Array<object>}
+         */
         this.marks = [];
     }
 
     /**
+     * Adds a trail mark behind a moving car, where it's sized by speed.
      * @param {number} x - Car centre x in pixels.
      * @param {number} y - Car centre y in pixels.
      * @param {number} speed - Current car speed in pixels per step.
@@ -25,6 +29,7 @@ class MotionTrail {
     }
 
     /**
+     * Fades each mark and removes those that have expired.
      * @return {void}
      */
     update() {
@@ -35,6 +40,7 @@ class MotionTrail {
     }
 
     /**
+     * Renders every active trail mark as a fading dot.
      * @return {void}
      */
     draw() {

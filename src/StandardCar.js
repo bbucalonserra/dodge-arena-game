@@ -1,7 +1,7 @@
 /** Class representing a light car. */
 class StandardCar extends Car {
     /**
-     * @param {PhysicsWorld} physics - Shared physics facade.
+     * @param {PhysicsWorld} physics - Shared physics.
      * @param {number} x - Initial centre x in pixels.
      * @param {number} y - Initial centre y in pixels.
      * @param {string} bodyColor - Chassis colour (player uses a distinct one).

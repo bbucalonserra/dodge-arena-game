@@ -16,9 +16,9 @@ class GameManager {
 
         this.startZoneW = arenaW * 0.2;
 
-        /** @type {StandardCar|null} */
+        /** @type {StandardCar|null} The player's car, or null when unspawned. */
         this.playerCar = null;
-        /** @type {Array<OpponentCar>} */
+        /** @type {Array<OpponentCar>} The opponent cars currently in the arena. */
         this.opponents = [];
 
         this.spawnArmed = false;
@@ -33,7 +33,7 @@ class GameManager {
         this.skidMarks = new SkidMarks();
         this.minimap = new Minimap(arenaX, arenaY, arenaW, arenaH, 0.15);
 
-        /** @type {Array<BoostPad>} */
+        /** @type {Array<BoostPad>} The boost pads active in the current mode. */
         this.boostPads = [];
         this.BOOST_TARGET = 12;
         this.BOOST_FRAMES = 40;
@@ -44,6 +44,7 @@ class GameManager {
         this.SD_DURATION = 18;
         this.SD_SHRINK_DUR = 3;
         this.SD_RESTORE_DUR = 1.5;
+
         // Inset per side; 0.15 shrinks the arena to 70% of full size.
         this.SD_MAX_INSET_FRAC = 0.15;
 
@@ -81,6 +82,7 @@ class GameManager {
     }
 
     /**
+     * Removes the player and all opponents from the arena and resets per-round state.
      * @return {void}
      */
     clearCars() {
@@ -113,6 +115,7 @@ class GameManager {
     }
 
     /**
+     * Starts Practice mode with four parked opponents in the Start Zone.
      * @return {void}
      */
     startMode1() {
@@ -131,6 +134,7 @@ class GameManager {
     }
 
     /**
+     * Starts Random Opponents mode with cars travelling in straight lines.
      * @return {void}
      */
     startMode2() {
@@ -143,6 +147,7 @@ class GameManager {
     }
 
     /**
+     * Starts Advanced Opponents mode with weaving cars, boost pads, and Sudden Death.
      * @return {void}
      */
     startMode3() {
@@ -206,6 +211,7 @@ class GameManager {
     }
 
     /**
+     * Arms player spawning so the next valid click places the car.
      * @return {void}
      */
     armSpawn() {
@@ -214,16 +220,17 @@ class GameManager {
     }
 
     /**
-     * @param {number} mx - Mouse x in canvas pixels.
-     * @param {number} my - Mouse y in canvas pixels.
+     * Attempts to spawn the player car at the click, if inside a clear Start Zone.
+     * @param {number} mx - Mouse x in pixels.
+     * @param {number} my - Mouse y in pixels.
      * @return {boolean} Whether the spawn succeeded.
      */
     trySpawn(mx, my) {
         if (!this.spawnArmed || this.playerCar) return false;
 
         // Validate against the current (possibly shrunk) Start Zone, matching
-        // what drawArena shows, so a Sudden Death spawn can't land in the
-        // band the walls have already claimed.
+        // what drawArena shows, so a 
+        // Sudden Death spawn can't land in the band the walls have already claimed.
         const ax = this.arenaX + this.insetX;
         const ay = this.arenaY + this.insetY;
         const aw = this.arenaW - 2 * this.insetX;
@@ -250,6 +257,7 @@ class GameManager {
     }
 
     /**
+     * Wires up the physics collision callback that routes barrier and car hits.
      * @return {void}
      */
     registerCollisionHandler() {
@@ -323,6 +331,7 @@ class GameManager {
     }
 
     /**
+     * Reads the arrow keys and drives the player car.
      * @return {void}
      */
     handleInput() {
@@ -444,6 +453,7 @@ class GameManager {
     }
 
     /**
+     * Boosts any car currently over a pad, while the arena is at full size.
      * @return {void}
      */
     applyBoosts() {
@@ -462,6 +472,7 @@ class GameManager {
     }
 
     /**
+     * Emits skid marks behind the player car while it is drifting.
      * @return {void}
      */
     emitSkidMarks() {
@@ -480,6 +491,7 @@ class GameManager {
     }
 
     /**
+     * Advances the whole game one frame: input, world state, cars, and effects.
      * @return {void}
      */
     update() {
@@ -564,6 +576,7 @@ class GameManager {
     }
 
     /**
+     * Draws every opponent with its damage tint, then the outlined player car.
      * @return {void}
      */
     drawCars() {
@@ -581,6 +594,7 @@ class GameManager {
     }
 
     /**
+     * Renders the arena, effects, cars, minimap, and HUD.
      * @return {void}
      */
     draw() {
@@ -605,6 +619,7 @@ class GameManager {
     }
 
     /**
+     * Draws the on-screen controls line and the Sudden Death banner.
      * @return {void}
      */
     drawHUD() {

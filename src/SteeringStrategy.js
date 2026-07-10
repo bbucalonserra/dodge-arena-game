@@ -1,6 +1,7 @@
 /** Class representing an opponent steering strategy. */
 class SteeringStrategy {
     /**
+     * Applies the strategy's steering to the given car (defined by subclasses).
      * @param {Car} car - The opponent car this strategy controls.
      * @return {void}
      */
@@ -29,7 +30,7 @@ class SteeringStrategy {
 /** Class representing a stationary steering strategy. */
 class StaticStrategy extends SteeringStrategy {
     /**
-     * Re-zeroes velocity every frame so the car stays put even when rammed.
+     * Zeros again the velocity every frame so the car stays put even when rammed.
      * @param {Car} car - The parked opponent.
      * @return {void}
      */
@@ -51,6 +52,7 @@ class StraightStrategy extends SteeringStrategy {
     }
 
     /**
+     * Drives the car along its fixed heading at constant speed.
      * @param {Car} car - The opponent to drive.
      * @return {void}
      */
@@ -77,6 +79,7 @@ class SineStrategy extends SteeringStrategy {
     }
 
     /**
+     * Advances the oscillation and drives the car along its weaving heading.
      * @param {Car} car - The opponent to drive.
      * @return {void}
      */

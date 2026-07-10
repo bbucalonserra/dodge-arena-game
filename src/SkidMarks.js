@@ -1,13 +1,17 @@
 /** Class representing tyre skid marks. */
 class SkidMarks {
     constructor() {
-        /** @type {Array<object>} */
+        /**
+         * An array of mark objects, each holding its position and remaining life.
+         * @type {Array<object>}
+         */
         this.marks = [];
         // Bound the buffer so a long drift can't grow it without limit.
         this.maxMarks = 500;
     }
 
     /**
+     * Adds a skid mark at the given point, discarding the oldest if the buffer is full.
      * @param {number} x - Mark x in pixels.
      * @param {number} y - Mark y in pixels.
      * @return {void}
@@ -18,6 +22,7 @@ class SkidMarks {
     }
 
     /**
+     * Fades each mark and removes those that have expired.
      * @return {void}
      */
     update() {
@@ -28,6 +33,7 @@ class SkidMarks {
     }
 
     /**
+     * Renders every active mark as a dark, fading dot.
      * @return {void}
      */
     draw() {
@@ -39,6 +45,7 @@ class SkidMarks {
     }
 
     /**
+     * Clears all marks.
      * @return {void}
      */
     reset() {

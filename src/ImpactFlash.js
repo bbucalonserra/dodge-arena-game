@@ -1,11 +1,15 @@
 /** Class representing a collision spark effect. */
 class ImpactFlash {
     constructor() {
-        /** @type {Array<object>} */
+        /**
+         * An array of spark objects, each holding its position, velocity, and remaining life.
+         * @type {Array<object>}
+         */
         this.sparks = [];
     }
 
     /**
+     * Spawns a ring of sparks at the impact point.
      * @param {number} x - Impact x in pixels.
      * @param {number} y - Impact y in pixels.
      * @return {void}
@@ -25,6 +29,7 @@ class ImpactFlash {
     }
 
     /**
+     * Moves and slows each spark, removing those that have expired.
      * @return {void}
      */
     update() {
@@ -40,6 +45,7 @@ class ImpactFlash {
     }
 
     /**
+     * Renders every active spark as a fading dot.
      * @return {void}
      */
     draw() {

@@ -15,12 +15,14 @@ class Minimap {
         this.scale = scale;
         this.mapW = arenaW * scale;
         this.mapH = arenaH * scale;
+        
         // Top-right corner with a 10px margin.
         this.drawX = arenaX + arenaW - this.mapW - 10;
         this.drawY = arenaY + 10;
     }
 
     /**
+     * Renders the minimap panel with a dot for every car.
      * @param {Array<Car>} cars - All cars currently in the arena.
      * @param {Car|null} playerCar - The player car (blinks), or null.
      * @return {void}

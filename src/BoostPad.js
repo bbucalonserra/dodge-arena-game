@@ -16,9 +16,10 @@ class BoostPad {
     }
 
     /**
-     * @param {number} px - Point x in pixels.
-     * @param {number} py - Point y in pixels.
-     * @return {boolean} True if the point is over the pad.
+     * Reports whether the given point lies within the pad's bounds.
+     * @param {number} px
+     * @param {number} py
+     * @return {boolean}
      */
     contains(px, py) {
         return (
@@ -30,6 +31,7 @@ class BoostPad {
     }
 
     /**
+     * Renders the pulsing pad and its directional chevrons.
      * @return {void}
      */
     draw() {

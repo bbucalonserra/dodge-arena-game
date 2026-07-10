@@ -37,6 +37,7 @@ class PhysicsWorld {
     }
 
     /**
+     * Creates the four perimeter walls around the arena and adds them to the world.
      * @param {number} offsetX - Left edge of the arena on the canvas.
      * @param {number} offsetY - Top edge of the arena on the canvas.
      * @return {void}
@@ -81,8 +82,8 @@ class PhysicsWorld {
      * Moves the walls' inner faces inward to shrink the playable rectangle,
      * which is what pushes cars together during Sudden Death. Zero restores
      * full size.
-     * @param {number} insetX - Horizontal shrink per side in pixels.
-     * @param {number} insetY - Vertical shrink per side in pixels.
+     * @param {number} insetX - Horizontal shrink per side (in pixels).
+     * @param {number} insetY - Vertical shrink per side (in pixels).
      * @return {void}
      */
     setInset(insetX, insetY) {
@@ -107,6 +108,7 @@ class PhysicsWorld {
     }
 
     /**
+     * Adds a body to the simulation.
      * @param {Matter.Body} body - The body to insert into the simulation.
      * @return {void}
      */
@@ -115,6 +117,7 @@ class PhysicsWorld {
     }
 
     /**
+     * Removes a body from the simulation.
      * @param {Matter.Body} body - The body to remove from the simulation.
      * @return {void}
      */
@@ -123,6 +126,7 @@ class PhysicsWorld {
     }
 
     /**
+     * Advances the physics engine by one fixed time.
      * @return {void}
      */
     update() {
@@ -130,6 +134,7 @@ class PhysicsWorld {
     }
 
     /**
+     * Registers a callback when two bodies crash.
      * @param {function} callback - Receives the matter.js collision event.
      * @return {void}
      */
