@@ -1,5 +1,5 @@
 /**
- * COMMENTARY (490 words).
+ * COMMENTARY (540 words).
  *
  * 1. PHYSICS
     * The arena is a simulation with no gravity (hence engine.gravity = 0 on both axes), 
@@ -38,15 +38,16 @@
     * i. Minimap: HUD mapping world coordinates in top right screen,
     * with the player dot blinking for better understanding.
     * ii. Damage system: for each car, a counter in a Map makes a lerpColor tint toward red plus, making it
-    * change colour for each crash.
+    * change colour for each crash. Past a damage threshold, the car also emits grey smoke.
     * iii. An angle drift with skid marks (see physics above),
     * coupling the grip model to a dedicated visual. 
     * iv. Mode 3 dynamic arena: a Sudden Death phase, where the arena gradually moves the four static walls
     * inward (Body.setPosition) to shrink area where player can drive, forcing cars to get together.
     * v. Boost pads apply a forward launch past the normal speed cap, going back to normal
-    * after a few milliseconds.
-    * vi. A menu, together with instruction draw directly using p5.js, and a background music 
-    * via p5.sound (music from pixbay, direct link: https://pixabay.com/music/video-games-8-bit-retro-game-music-233964/)
+    * after about 0.7 seconds. Pads vanish during Sudden Death, returning when the arena reopens.
+    * vi. A menu, together with instruction draw directly using p5.js, and a background music
+    * via p5.sound (music from Pixabay, direct link: https://pixabay.com/music/video-games-8-bit-retro-game-music-233964/)
+    * vii. A per-frame containment pass reflects opponent headings near walls, clamping them inside the shrinking bounds.
  */
 
 /** @type {PhysicsWorld} */
